@@ -11,9 +11,6 @@ const pool = new Pool({
   database: 'lightbnb'
 });
 
-// pool.query(`SELECT title FROM properties LIMIT 10;`).then(response => {
-//   console.log(response);
-// });
 
 
 /// Users
@@ -23,17 +20,6 @@ const pool = new Pool({
  * @param {String} email The email of the user.
  * @return {Promise<{}>} A promise to the user.
  */
-// const getUserWithEmail = function (email) {
-//   let resolvedUser = null;
-//   for (const userId in users) {
-//     const user = users[userId];
-//     if (user?.email.toLowerCase() === email?.toLowerCase()) {
-//       resolvedUser = user;
-//     }
-//   }
-//   console.log(Promise.resolve(resolvedUser), "promise log")
-//   return Promise.resolve(resolvedUser);
-// };
 
 const getUserWithEmail = (email) => {
   return pool
@@ -100,9 +86,7 @@ const addUser = (user) => {
  * @param {string} guest_id The id of the user.
  * @return {Promise<[{}]>} A promise to the reservations.
  */
-// const getAllReservations = function(guest_id, limit = 10) {
-//   return getAllProperties(null, 2);
-// };
+
 const getAllReservations = function(guest_id, limit = 10) {
   return pool
     .query(`SELECT properties.*, reservations.*, avg(rating) as average_rating
@@ -132,17 +116,7 @@ const getAllReservations = function(guest_id, limit = 10) {
  * @param {*} limit The number of results to return.
  * @return {Promise<[{}]>}  A promise to the properties.
  */
-// const getAllProperties = (options, limit = 10) => {
-//   return pool
-//     .query(`SELECT * FROM properties LIMIT $1`, [limit])
-//     .then((result) => {
-//       console.log(result.rows);
-//       return result.rows;
-//     })
-//     .catch((err) => {
-//       console.log(err.message);
-//     });
-// };
+
 
 const getAllProperties = function(options, limit = 10) {
   const queryParams = [];
