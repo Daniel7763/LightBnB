@@ -39,6 +39,7 @@ router.post("/properties", (req, res) => {
   database
     .addProperty(newProperty)
     .then((property) => {
+      console.log("test", property);
       res.send(property);
     })
     .catch((e) => {
