@@ -18,10 +18,14 @@ router.get("/reservations", (req, res) => {
   if (!userId) {
     return res.send({ error: "error" });
   }
-
+  console.log("reservations");
   database
     .getAllReservations(userId)
-    .then((reservations) => res.send({ reservations }))
+    .then((reservations) => {
+      console.log("reservations.length", reservations.length);
+      res.send({ reservations });
+    })
+
     .catch((e) => {
       console.error(e);
       res.send(e);
