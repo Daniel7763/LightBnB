@@ -25,7 +25,7 @@ const getUserWithEmail = (email) => {
   return pool
     .query(`SELECT * FROM users WHERE email = $1`, [email])
     .then((result) => {
-      console.log(result.rows);
+  
       return result.rows[0];
     })
     .catch((err) => {
@@ -43,7 +43,6 @@ const getUserWithId = (id) => {
   return pool
     .query(`SELECT * FROM users WHERE id = $1`, [id])
     .then((result) => {
-      console.log(result.rows);
       return result.rows[0];
     })
     .catch((err) => {
@@ -57,12 +56,6 @@ const getUserWithId = (id) => {
  * @param {{name: string, password: string, email: string}} user
  * @return {Promise<{}>} A promise to the user.
  */
-// const addUser = function(user) {
-//   const userId = Object.keys(users).length + 1;
-//   user.id = userId;
-//   users[userId] = user;
-//   return Promise.resolve(user);
-// };
 
 const addUser = (user) => {
   return pool
@@ -70,7 +63,6 @@ const addUser = (user) => {
     VALUES ($1, $2, $3)
     RETURNING *`, [user.name, user.email, user.password])
     .then((result) => {
-      console.log(result.rows);
       return result.rows[0];
     })
     .catch((err) => {
@@ -79,7 +71,7 @@ const addUser = (user) => {
     });
 };
 
-/// Reservations
+// Reservations
 
 /**
  * Get all reservations for a single user.
@@ -99,7 +91,6 @@ const getAllReservations = function(guest_id, limit = 10) {
     ORDER BY reservations.start_date
     LIMIT $2;`, [guest_id, limit])
     .then((result) => {
-      console.log(result.rows);
       return result.rows;
     })
     .catch((err) => {
@@ -108,7 +99,7 @@ const getAllReservations = function(guest_id, limit = 10) {
     });
 };
 
-/// Properties
+// Properties
 
 /**
  * Get all properties.
@@ -149,20 +140,7 @@ const getAllProperties = function(options, limit = 10) {
   // const wheres = [];
   // if (options.owner_id) {
   //   queryParams.push(options.owner_id);
-
   //   wheres.push(`owner_id = $${queryParams.length}`);
-  // }
-  // //cost per night
-  // if (options.minimum_price_per_night) {
-  //   queryParams.push((options.minimum_price_per_night) * 100);
-
-  //   wheres.push(`cost_per_night >= $${queryParams.length}`);
-
-
-  // }
-  // //insert many more conditionals, if city minimal cost here
-  // if (wheres.length > 0) {
-  //   queryString += ` WHERE ${wheres.join(" AND ")} `;
   // }
   // //example
 
@@ -202,8 +180,6 @@ const getAllProperties = function(options, limit = 10) {
     ORDER BY cost_per_night
     LIMIT $${queryParams.length};
     `;
-
-  console.log(queryString, queryParams);
 
   return pool.query(queryString, queryParams)
     .then(res => res.rows)
@@ -251,17 +227,12 @@ const addProperty = function(property) {
         property.number_of_bathrooms,
         property.number_of_bedrooms])
     .then((result) => {
-      console.log(result.rows);
       return result.rows[0];
     })
     .catch((err) => {
       console.log(err.message);
       return null;
     });
-  // const propertyId = Object.keys(properties).length + 1;
-  // property.id = propertyId;
-  // properties[propertyId] = property;
-  // return Promise.resolve(property);
 };
 
 module.exports = {

@@ -18,12 +18,10 @@ router.get("/reservations", (req, res) => {
   if (!userId) {
     return res.send({ error: "error" });
   }
-  console.log("reservations");
-  database
+  return database
     .getAllReservations(userId)
     .then((reservations) => {
-      console.log("reservations.length", reservations.length);
-      res.send({ reservations });
+      return res.send({ reservations });
     })
 
     .catch((e) => {
@@ -43,7 +41,6 @@ router.post("/properties", (req, res) => {
   database
     .addProperty(newProperty)
     .then((property) => {
-      console.log("test", property);
       res.send(property);
     })
     .catch((e) => {
